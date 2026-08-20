@@ -91,10 +91,7 @@ function App() {
 
         updateCountdown();
 
-        const timer = setInterval(
-            updateCountdown,
-            1000
-        );
+        const timer = setInterval(updateCountdown, 1000);
 
         return () => clearInterval(timer);
     }, []);
@@ -233,9 +230,7 @@ function App() {
                 {!opened && (
                     <motion.div
                         className={`intro ${
-                            opening
-                                ? "is-opening"
-                                : ""
+                            opening ? "is-opening" : ""
                         }`}
                         initial={{ opacity: 1 }}
                         exit={{
@@ -256,9 +251,7 @@ function App() {
                             <button
                                 type="button"
                                 className="seal-button"
-                                onClick={
-                                    handleSealClick
-                                }
+                                onClick={handleSealClick}
                                 disabled={opening}
                                 aria-label="Taklifnomani ochish"
                             >
@@ -267,39 +260,87 @@ function App() {
 
                         </div>
 
+                        {/* =================================================
+                            YANGI OPENING LIGHT
+                        ================================================= */}
+
                         {opening && (
-                            <>
+                            <div className="opening-light-wrapper">
+
+                                {/* Tashqi katta nur */}
                                 <motion.div
                                     className="opening-light"
                                     initial={{
                                         opacity: 0,
-                                        scale: 0.3,
+                                        scale: 0.05,
                                     }}
                                     animate={{
                                         opacity: [
                                             0,
+                                            0.9,
                                             1,
-                                            1,
+                                            0.85,
                                             0,
                                         ],
                                         scale: [
-                                            0.3,
-                                            1,
+                                            0.05,
+                                            0.45,
+                                            1.8,
                                             8,
-                                            25,
+                                            35,
                                         ],
                                     }}
                                     transition={{
                                         duration: 1.3,
-                                        ease: "easeInOut",
+                                        times: [
+                                            0,
+                                            0.18,
+                                            0.45,
+                                            0.72,
+                                            1,
+                                        ],
+                                        ease: [
+                                            "easeOut",
+                                            "easeOut",
+                                            "easeInOut",
+                                            "easeIn",
+                                        ],
                                     }}
                                 />
 
+                                {/* Ikkinchi yumshoq glow */}
+                                <motion.div
+                                    className="opening-glow"
+                                    initial={{
+                                        opacity: 0,
+                                        scale: 0.1,
+                                    }}
+                                    animate={{
+                                        opacity: [
+                                            0,
+                                            0.8,
+                                            1,
+                                            0,
+                                        ],
+                                        scale: [
+                                            0.1,
+                                            0.8,
+                                            4,
+                                            18,
+                                        ],
+                                    }}
+                                    transition={{
+                                        duration: 1.3,
+                                        ease: "easeOut",
+                                    }}
+                                />
+
+                                {/* Markaziy oq yadro */}
                                 <motion.div
                                     className="light-core"
                                     initial={{
                                         opacity: 0,
-                                        scale: 0.2,
+                                        scale: 0.05,
                                     }}
                                     animate={{
                                         opacity: [
@@ -309,19 +350,27 @@ function App() {
                                             0,
                                         ],
                                         scale: [
-                                            0.2,
-                                            1,
+                                            0.05,
+                                            0.8,
                                             2,
-                                            8,
+                                            7,
                                         ],
                                     }}
                                     transition={{
                                         duration: 1.3,
-                                        ease: "easeInOut",
+                                        times: [
+                                            0,
+                                            0.3,
+                                            0.62,
+                                            1,
+                                        ],
+                                        ease: "easeOut",
                                     }}
                                 />
-                            </>
+
+                            </div>
                         )}
+
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -338,9 +387,7 @@ function App() {
                     transition={{ duration: 0.5 }}
                 >
 
-                    {/* =================================================
-                        MAIN INVITATION IMAGE
-                    ================================================= */}
+                    {/* MAIN INVITATION IMAGE */}
 
                     <section className="invitation">
 
@@ -352,9 +399,7 @@ function App() {
 
                     </section>
 
-                    {/* =================================================
-                        DATE + COUNTDOWN
-                    ================================================= */}
+                    {/* DATE + COUNTDOWN */}
 
                     <section className="date-section">
 
@@ -426,9 +471,7 @@ function App() {
 
                     </section>
 
-                    {/* =================================================
-                        NAMES
-                    ================================================= */}
+                    {/* NAMES */}
 
                     <section className="invitation">
 
@@ -498,9 +541,7 @@ function App() {
 
                     </section>
 
-                    {/* =================================================
-                        CALENDAR
-                    ================================================= */}
+                    {/* CALENDAR */}
 
                     <motion.section
                         className="section italian_calendar"
@@ -550,10 +591,7 @@ function App() {
                                         "S",
                                         "S",
                                     ].map(
-                                        (
-                                            day,
-                                            index
-                                        ) => (
+                                        (day, index) => (
                                             <div
                                                 key={index}
                                                 className="day_name"
@@ -563,41 +601,30 @@ function App() {
                                         )
                                     )}
 
-                                    {/* 1-SENTABR 2026 — SESHANBA */}
-
                                     <div className="day empty_day"></div>
 
                                     {Array.from(
-                                        {
-                                            length: 30,
-                                        },
-                                        (
-                                            _,
-                                            index
-                                        ) => {
+                                        { length: 30 },
+                                        (_, index) => {
                                             const day =
                                                 index + 1;
 
                                             return (
                                                 <div
-                                                    key={
-                                                        day
-                                                    }
+                                                    key={day}
                                                     className={
-                                                        day ===
-                                                        30
+                                                        day === 30
                                                             ? "day active_day"
                                                             : "day"
                                                     }
                                                 >
                                                     {day}
 
-                                                    {day ===
-                                                        30 && (
-                                                            <span className="calendar-heart">
+                                                    {day === 30 && (
+                                                        <span className="calendar-heart">
                                                             ♥
                                                         </span>
-                                                        )}
+                                                    )}
                                                 </div>
                                             );
                                         }
@@ -619,9 +646,7 @@ function App() {
 
                     </motion.section>
 
-                    {/* =================================================
-                        TO'Y DASTURI
-                    ================================================= */}
+                    {/* PROGRAM */}
 
                     <section className="program-section">
 
@@ -721,9 +746,7 @@ function App() {
 
                     </section>
 
-                    {/* =================================================
-                        LOCATION
-                    ================================================= */}
+                    {/* LOCATION */}
 
                     <section className="location-section">
 
@@ -800,9 +823,7 @@ function App() {
 
                     </section>
 
-                    {/* =================================================
-                        FOOTER
-                    ================================================= */}
+                    {/* FOOTER */}
 
                     <section className="footer-section">
 
@@ -820,22 +841,16 @@ function App() {
 
                             <h2 className="footer-names">
                                 Doniyor
-                                <span>
-                                    &amp;
-                                </span>
+                                <span>&amp;</span>
                                 Robiyaxon
                             </h2>
 
                             <div className="footer-date">
 
                                 <span>30</span>
-
                                 <b>•</b>
-
                                 <span>09</span>
-
                                 <b>•</b>
-
                                 <span>2026</span>
 
                             </div>
@@ -851,7 +866,6 @@ function App() {
                             <div className="footer-heart">
                                 ♡
                             </div>
-
 
                         </div>
 

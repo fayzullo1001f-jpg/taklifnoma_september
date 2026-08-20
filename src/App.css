@@ -21,13 +21,9 @@ html {
 
 body {
     margin: 0;
-
     min-width: 320px;
-
     overflow-x: hidden;
-
     background: #fff7fa;
-
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -44,9 +40,7 @@ button {
 .app {
     width: 100%;
     min-height: 100vh;
-
     overflow-x: hidden;
-
     background: #fff7fa;
 }
 
@@ -57,7 +51,6 @@ button {
 
 .intro {
     position: fixed;
-
     inset: 0;
 
     width: 100vw;
@@ -66,7 +59,6 @@ button {
     z-index: 100;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -74,10 +66,11 @@ button {
 
     background:
             radial-gradient(
-                    circle at center,
-                    #fffafd 0%,
-                    #fcecf4 45%,
-                    #f5dce9 75%,
+                    circle at 45% 45%,
+                    #fffdf8 0%,
+                    #fff8ed 22%,
+                    #fcecf4 52%,
+                    #f5dce9 78%,
                     #edc9db 100%
             );
 }
@@ -90,28 +83,35 @@ button {
 .envelope {
     position: relative;
 
-    width: 100vw;
+    width: 100%;
+    max-width: 420px;
     height: 100svh;
 
-    display: flex;
+    margin: 0 auto;
 
+    display: flex;
     align-items: center;
     justify-content: center;
+
+    overflow: hidden;
 }
 
 .envelope-image {
     display: block;
 
-    width: 100vw;
-    height: 100svh;
+    width: 100%;
+    height: 100%;
 
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
 
     user-select: none;
     pointer-events: none;
-
     -webkit-user-drag: none;
+
+    transition:
+            filter 0.35s ease,
+            opacity 0.35s ease;
 }
 
 
@@ -122,12 +122,15 @@ button {
 .seal-button {
     position: absolute;
 
-    z-index: 100;
+    z-index: 110;
 
-    top: 37%;
+    top: 46%;
+    left: 50%;
 
     width: 110px;
     height: 110px;
+
+    transform: translate(-50%, -50%);
 
     border: 0;
     border-radius: 50%;
@@ -135,7 +138,6 @@ button {
     background: transparent;
 
     cursor: pointer;
-
     padding: 0;
 
     -webkit-tap-highlight-color: transparent;
@@ -152,143 +154,199 @@ button {
 
     border-radius: 50%;
 
-    border:
-            1px solid
-            rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.8);
 
     opacity: 0;
 }
 
 
 /* =========================================================
-   OPENING
+   OPENING ENVELOPE EFFECT
 ========================================================= */
 
-.intro.is-opening {
-    animation:
-            introFlash
-            1.3s
-            ease
-            forwards;
-}
-
 .intro.is-opening .envelope-image {
-    animation:
-            envelopeLight
-            1.3s
-            ease
-            forwards;
+    animation: envelopeOpening 1.3s ease-out forwards;
 }
 
-@keyframes envelopeLight {
+@keyframes envelopeOpening {
 
     0% {
         filter:
                 brightness(1)
                 saturate(1);
+        opacity: 1;
     }
 
-    40% {
+    35% {
         filter:
-                brightness(1.25)
-                saturate(1);
+                brightness(1.12)
+                saturate(0.98);
+        opacity: 1;
     }
 
-    70% {
+    62% {
         filter:
-                brightness(2)
-                saturate(0.8);
+                brightness(1.45)
+                saturate(0.9);
+        opacity: 0.96;
+    }
+
+    82% {
+        filter:
+                brightness(2.2)
+                saturate(0.65);
+        opacity: 0.65;
     }
 
     100% {
         filter:
-                brightness(4)
-                saturate(0.5);
-
+                brightness(3.5)
+                saturate(0.45);
         opacity: 0;
-    }
-}
-
-@keyframes introFlash {
-
-    0% {
-        background: #f7dfeb;
-    }
-
-    40% {
-        background: #fff7df;
-    }
-
-    70% {
-        background: #fffbea;
-    }
-
-    100% {
-        background: #fffdf4;
     }
 }
 
 
 /* =========================================================
-   OPENING LIGHT
+   NEW OPENING LIGHT SYSTEM
+========================================================= */
+
+.opening-light-wrapper {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 300;
+
+    width: 100vw;
+    height: 100svh;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   MAIN LIGHT
+   45% LEFT / 45% TOP
 ========================================================= */
 
 .opening-light {
-    position: fixed;
+    position: absolute;
 
-    z-index: 200;
-
-
+    left: 45%;
     top: 45%;
 
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
 
-    transform:
-            translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 
     border-radius: 50%;
-
-    pointer-events: none;
 
     background:
             radial-gradient(
                     circle,
-                    #ffffff 0%,
-                    rgba(255, 252, 220, .95) 20%,
-                    rgba(255, 224, 140, .7) 45%,
-                    transparent 75%
+                    rgba(255, 255, 255, 1) 0%,
+                    rgba(255, 255, 245, 0.98) 10%,
+                    rgba(255, 247, 204, 0.92) 22%,
+                    rgba(255, 225, 145, 0.72) 38%,
+                    rgba(255, 210, 130, 0.42) 54%,
+                    rgba(255, 220, 165, 0.18) 68%,
+                    transparent 80%
             );
 
     filter: blur(2px);
 
     mix-blend-mode: screen;
+
+    will-change:
+            transform,
+            opacity;
 }
 
-.light-core {
-    position: fixed;
 
-    z-index: 201;
+/* =========================================================
+   SOFT GLOW
+========================================================= */
 
+.opening-glow {
+    position: absolute;
 
+    left: 45%;
     top: 45%;
 
-    width: 40px;
-    height: 40px;
+    width: 180px;
+    height: 180px;
 
-    transform:
-            translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 
     border-radius: 50%;
 
-    background: white;
+    background:
+            radial-gradient(
+                    circle,
+                    rgba(255, 255, 255, 0.95) 0%,
+                    rgba(255, 249, 215, 0.75) 18%,
+                    rgba(255, 225, 160, 0.48) 35%,
+                    rgba(255, 205, 145, 0.22) 52%,
+                    rgba(255, 210, 180, 0.08) 68%,
+                    transparent 78%
+            );
+
+    filter: blur(14px);
+
+    mix-blend-mode: screen;
+
+    will-change:
+            transform,
+            opacity;
+}
+
+
+/* =========================================================
+   LIGHT CORE
+========================================================= */
+
+.light-core {
+    position: absolute;
+
+    left: 45%;
+    top: 45%;
+
+    width: 46px;
+    height: 46px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+            radial-gradient(
+                    circle,
+                    #ffffff 0%,
+                    #ffffff 32%,
+                    #fffdf0 58%,
+                    rgba(255, 243, 191, 0.95) 75%,
+                    rgba(255, 221, 145, 0.45) 88%,
+                    transparent 100%
+            );
 
     box-shadow:
-            0 0 25px white,
-            0 0 60px #fff0b0,
-            0 0 110px #f9c9dd;
+            0 0 12px rgba(255, 255, 255, 1),
+            0 0 30px rgba(255, 252, 216, 0.98),
+            0 0 65px rgba(255, 224, 150, 0.82),
+            0 0 110px rgba(255, 211, 145, 0.55),
+            0 0 170px rgba(249, 201, 221, 0.35);
 
-    pointer-events: none;
+    filter: blur(0.5px);
+
+    mix-blend-mode: screen;
+
+    will-change:
+            transform,
+            opacity;
 }
 
 
@@ -325,7 +383,6 @@ button {
     margin: 0 auto;
 
     display: flex;
-
     justify-content: center;
     align-items: flex-start;
 
@@ -343,7 +400,6 @@ button {
     height: auto;
 
     position: relative;
-
     z-index: 1;
 
     object-fit: contain;
@@ -382,29 +438,6 @@ button {
 
 
 /* =========================================================
-   TOP TEXT
-========================================================= */
-
-.invitation-top {
-    position: absolute;
-
-    top: 17%;
-
-    width: 100%;
-
-    margin: 0;
-
-    font-size: 8px;
-
-    letter-spacing: 3px;
-
-    font-weight: 500;
-
-    color: #a95770;
-}
-
-
-/* =========================================================
    NAMES
 ========================================================= */
 
@@ -429,13 +462,11 @@ button {
 
 .groom-name {
     top: 20%;
-
     font-size: 47px;
 }
 
 .bride-name {
     top: 33%;
-
     font-size: 36px;
 }
 
@@ -594,24 +625,21 @@ button {
 
 
 /* =========================================================
-   HEART
+   INVITATION HEART
 ========================================================= */
 
-.heart {
+.invitation-heart {
     position: absolute;
 
     top: 70%;
     left: 50%;
 
-    transform:
-            translateX(-50%);
+    transform: translateX(-50%);
 
     width: 48px;
     height: 48px;
 
-    border:
-            1px solid
-            #d99baa;
+    border: 1px solid #d99baa;
 
     border-radius: 50%;
 
@@ -652,43 +680,6 @@ button {
     color: #b45d76;
 }
 
-/* =========================================================
-   DATE
-========================================================= */
-
-.date {
-    position: absolute;
-
-    bottom: 9%;
-
-    width: 100%;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 10px;
-
-    font-family:
-            "Playfair Display",
-            serif;
-
-    color: #a95a70;
-}
-
-.date span {
-    font-size: 12px;
-
-    letter-spacing: 2px;
-}
-
-.date b {
-    font-size: 12px;
-
-    color: #c48b67;
-}
-
 
 /* =========================================================
    DATE SECTION
@@ -712,11 +703,6 @@ button {
                     #fff1f5 100%
             );
 }
-
-
-/* =========================================================
-   DATE TITLE
-========================================================= */
 
 .date-decoration {
     color: #c7839b;
@@ -742,7 +728,7 @@ button {
 
     color: #a95f79;
 
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
 }
 
 .date-subtitle {
@@ -767,11 +753,6 @@ button {
 .date-subtitle span {
     color: #c7849b;
 }
-
-
-/* =========================================================
-   DATE LINE
-========================================================= */
 
 .date-line {
     width: 88%;
@@ -817,11 +798,6 @@ button {
     font-weight: 400;
 }
 
-
-/* =========================================================
-   CAPTION
-========================================================= */
-
 .date-caption {
     margin: 0 0 15px;
 
@@ -852,14 +828,7 @@ button {
         repeat(2, minmax(0, 1fr));
 
     gap: 9px;
-
-    padding: 0;
 }
-
-
-/* =========================================================
-   COUNTDOWN BUTTON
-========================================================= */
 
 .date-item {
     width: 100%;
@@ -877,14 +846,8 @@ button {
 
     cursor: pointer;
 
-    -webkit-tap-highlight-color:
-            transparent;
+    -webkit-tap-highlight-color: transparent;
 }
-
-
-/* =========================================================
-   COUNTDOWN CARD
-========================================================= */
 
 .date-box {
     width: 100%;
@@ -911,44 +874,22 @@ button {
 
     border:
             1px solid
-            rgba(
-                    209,
-                    143,
-                    163,
-                    .28
-            );
+            rgba(209, 143, 163, 0.28);
 
     box-shadow:
             0 6px 16px
-            rgba(
-                    163,
-                    93,
-                    119,
-                    .08
-            ),
-            inset
-            0 1px 0
-            rgba(
-                    255,
-                    255,
-                    255,
-                    .95
-            );
+            rgba(163, 93, 119, 0.08),
+            inset 0 1px 0
+            rgba(255, 255, 255, 0.95);
 
     transition:
-            transform .2s ease,
-            box-shadow .2s ease,
-            background .2s ease;
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
 }
 
-
-/* =========================================================
-   ACTIVE CARD
-========================================================= */
-
 .date-item.active .date-box {
-    transform:
-            translateY(-2px);
+    transform: translateY(-2px);
 
     background:
             linear-gradient(
@@ -959,18 +900,8 @@ button {
 
     box-shadow:
             0 8px 20px
-            rgba(
-                    163,
-                    93,
-                    119,
-                    .13
-            );
+            rgba(163, 93, 119, 0.13);
 }
-
-
-/* =========================================================
-   DATE ICON
-========================================================= */
 
 .date-icon {
     width: 100%;
@@ -995,11 +926,6 @@ button {
             serif;
 }
 
-
-/* =========================================================
-   DATE LABEL
-========================================================= */
-
 .date-label {
     width: 100%;
 
@@ -1017,11 +943,6 @@ button {
 
     color: #b06a82;
 }
-
-
-/* =========================================================
-   DATE NUMBER
-========================================================= */
 
 .date-number {
     width: 100%;
@@ -1047,35 +968,20 @@ button {
     white-space: nowrap;
 
     transition:
-            opacity .2s ease;
+            opacity 0.2s ease;
 }
 
-
-/* =========================================================
-   HIDDEN VALUE
-========================================================= */
-
 .date-number:not(.show) {
-    opacity: .45;
+    opacity: 0.45;
 
     letter-spacing: 1.5px;
 }
-
-
-/* =========================================================
-   SHOWN VALUE
-========================================================= */
 
 .date-number.show {
     opacity: 1;
 
     letter-spacing: 0;
 }
-
-
-/* =========================================================
-   DATE BOTTOM
-========================================================= */
 
 .date-bottom {
     margin-top: 22px;
@@ -1091,11 +997,6 @@ button {
     color: #b36e85;
 }
 
-
-/* =========================================================
-   BOTTOM LINE
-========================================================= */
-
 .bottom-line {
     width: 82%;
 
@@ -1103,6 +1004,7 @@ button {
 
     margin-bottom: 0;
 }
+
 
 /* =========================================================
    PROGRAM
@@ -1124,11 +1026,6 @@ button {
 
     overflow: hidden;
 }
-
-
-/* =========================================================
-   TIMELINE
-========================================================= */
 
 .timeline {
     position: relative;
@@ -1152,8 +1049,7 @@ button {
 
     width: 1px;
 
-    transform:
-            translateX(-50%);
+    transform: translateX(-50%);
 
     background:
             linear-gradient(
@@ -1164,11 +1060,6 @@ button {
                     transparent
             );
 }
-
-
-/* =========================================================
-   TIMELINE ITEM
-========================================================= */
 
 .timeline-item {
     position: relative;
@@ -1211,14 +1102,8 @@ button {
     z-index: 3;
 }
 
-
-/* =========================================================
-   ARCH
-========================================================= */
-
 .program-arch {
     width: 200px;
-
     height: auto;
 
     display: block;
@@ -1233,11 +1118,6 @@ button {
     -webkit-user-drag: none;
 }
 
-
-/* =========================================================
-   PROGRAM INFO
-========================================================= */
-
 .program-info {
     width: 150px;
 
@@ -1246,48 +1126,29 @@ button {
     color: #ad7184;
 }
 
-
-/* =========================================================
-   LEFT
-========================================================= */
-
 .timeline-item.left {
     padding-right: 12px;
 }
 
-.timeline-item.left
-.program-arch {
+.timeline-item.left .program-arch {
     margin-left: 10px;
 }
 
-.timeline-item.left
-.program-info {
+.timeline-item.left .program-info {
     text-align: left;
 }
-
-
-/* =========================================================
-   RIGHT
-========================================================= */
 
 .timeline-item.right {
     padding-left: 12px;
 }
 
-.timeline-item.right
-.program-arch {
+.timeline-item.right .program-arch {
     margin-right: 10px;
 }
 
-.timeline-item.right
-.program-info {
+.timeline-item.right .program-info {
     text-align: right;
 }
-
-
-/* =========================================================
-   PROGRAM TIME
-========================================================= */
 
 .program-time {
     font-family:
@@ -1305,11 +1166,6 @@ button {
 
     white-space: nowrap;
 }
-
-
-/* =========================================================
-   PROGRAM TEXT
-========================================================= */
 
 .program-info h3 {
     margin: 0;
@@ -1360,11 +1216,6 @@ button {
     overflow: hidden;
 }
 
-
-/* =========================================================
-   LOCATION MAP
-========================================================= */
-
 .location-background {
     position: absolute;
 
@@ -1386,11 +1237,6 @@ button {
     -webkit-user-drag: none;
 }
 
-
-/* =========================================================
-   LOCATION CONTENT
-========================================================= */
-
 .location-content {
     position: relative;
 
@@ -1410,11 +1256,6 @@ button {
             100px 30px 45px;
 }
 
-
-/* =========================================================
-   LOCATION ORNAMENT
-========================================================= */
-
 .location-top-ornament {
     color: #c57d94;
 
@@ -1422,11 +1263,6 @@ button {
 
     margin-bottom: 15px;
 }
-
-
-/* =========================================================
-   LOCATION LABEL
-========================================================= */
 
 .location-label {
     margin:
@@ -1442,11 +1278,6 @@ button {
 
     color: #a9657b;
 }
-
-
-/* =========================================================
-   VERSAL
-========================================================= */
 
 .location-title {
     margin: 0;
@@ -1465,11 +1296,6 @@ button {
     color: #b45f79;
 }
 
-
-/* =========================================================
-   TO'YXONA
-========================================================= */
-
 .location-subtitle {
     margin:
             8px 0 0;
@@ -1486,11 +1312,6 @@ button {
 
     color: #ae6c82;
 }
-
-
-/* =========================================================
-   LOCATION DIVIDER
-========================================================= */
 
 .location-divider {
     width: 190px;
@@ -1521,11 +1342,6 @@ button {
     font-weight: 400;
 }
 
-
-/* =========================================================
-   LOCATION TEXT
-========================================================= */
-
 .location-text {
     margin: 0;
 
@@ -1541,11 +1357,6 @@ button {
 
     color: #a96c80;
 }
-
-
-/* =========================================================
-   LOCATION PIN
-========================================================= */
 
 .location-pin {
     width: 55px;
@@ -1569,25 +1380,14 @@ button {
                     255,
                     250,
                     252,
-                    .75
+                    0.75
             );
-}
-
-.location-pin span {
-    font-size: 28px;
-
-    color: #b5657e;
 }
 
 .location-dot {
     width: 35px;
     height: 35px;
 }
-
-
-/* =========================================================
-   LOCATION ADDRESS
-========================================================= */
 
 .location-address {
     margin:
@@ -1603,11 +1403,6 @@ button {
 
     color: #a6647a;
 }
-
-
-/* =========================================================
-   LOCATION BUTTON
-========================================================= */
 
 .location-button {
     display: flex;
@@ -1648,18 +1443,9 @@ button {
                     157,
                     82,
                     108,
-                    .2
+                    0.2
             );
 }
-
-.location-button span {
-    font-size: 17px;
-}
-
-
-/* =========================================================
-   LOCATION BOTTOM
-========================================================= */
 
 .location-bottom-ornament {
     margin-top: 22px;
@@ -1690,14 +1476,8 @@ button {
     display: block;
 
     width: 100%;
-
     height: auto;
 }
-
-
-/* =========================================================
-   FOOTER CONTENT
-========================================================= */
 
 .footer-content {
     position: absolute;
@@ -1714,11 +1494,6 @@ button {
 
     font-weight: 300;
 }
-
-
-/* =========================================================
-   FOOTER TOP
-========================================================= */
 
 .footer-top {
     margin:
@@ -1739,11 +1514,6 @@ button {
     text-transform: uppercase;
 }
 
-
-/* =========================================================
-   FOOTER NAMES
-========================================================= */
-
 .footer-names {
     margin:
             7px 0 0;
@@ -1762,13 +1532,9 @@ button {
 
     line-height: 1.05;
 
-    letter-spacing: 0;
-
     color: #b85f78;
 
     white-space: nowrap;
-
-    text-shadow: none;
 }
 
 .footer-names span {
@@ -1787,11 +1553,6 @@ button {
 
     color: #b85f78;
 }
-
-
-/* =========================================================
-   FOOTER DATE
-========================================================= */
 
 .footer-date {
     display: flex;
@@ -1829,11 +1590,6 @@ button {
     color: #c18a66;
 }
 
-
-/* =========================================================
-   FOOTER MESSAGE
-========================================================= */
-
 .footer-message {
     margin:
             12% 0 0;
@@ -1850,15 +1606,10 @@ button {
 
     line-height: 1.9;
 
-    letter-spacing: .3px;
+    letter-spacing: 0.3px;
 
     color: #ad6a7d;
 }
-
-
-/* =========================================================
-   FOOTER HEART
-========================================================= */
 
 .footer-heart {
     width: 58px;
@@ -1877,7 +1628,7 @@ button {
                     184,
                     102,
                     126,
-                    .55
+                    0.55
             );
 
     border-radius: 50%;
@@ -1887,7 +1638,7 @@ button {
                     255,
                     250,
                     252,
-                    .35
+                    0.35
             );
 
     font-family:
@@ -1899,51 +1650,6 @@ button {
     font-weight: 300;
 
     color: #b8667e;
-}
-
-
-/* =========================================================
-   FOOTER THANKS
-========================================================= */
-
-.footer-thanks {
-    margin:
-            20px 0 0;
-
-    font-family:
-            "Cormorant Garamond",
-            serif;
-
-    font-size: 12px;
-
-    font-weight: 300;
-
-    font-style: italic;
-
-    line-height: 1.9;
-
-    color: #ad687d;
-}
-
-
-/* =========================================================
-   FOOTER COPYRIGHT
-========================================================= */
-
-.footer-copy {
-    margin-top: 8%;
-
-    font-family:
-            "Cormorant Garamond",
-            serif;
-
-    font-size: 9px;
-
-    font-weight: 300;
-
-    letter-spacing: 1.5px;
-
-    color: #b66d81;
 }
 
 
@@ -1975,7 +1681,7 @@ button {
                     184,
                     102,
                     126,
-                    .35
+                    0.35
             );
 
     border-radius: 50%;
@@ -1985,7 +1691,7 @@ button {
                     255,
                     250,
                     252,
-                    .96
+                    0.96
             );
 
     box-shadow:
@@ -1994,35 +1700,23 @@ button {
                     163,
                     93,
                     119,
-                    .20
+                    0.20
             );
 
     cursor: pointer;
 
     outline: none;
 
-    -webkit-tap-highlight-color:
-            transparent;
-
-    transition:
-            transform .2s ease,
-            box-shadow .2s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .music-button:hover {
-    transform:
-            scale(1.06);
+    transform: scale(1.06);
 }
 
 .music-button:active {
-    transform:
-            scale(.90);
+    transform: scale(0.90);
 }
-
-
-/* =========================================================
-   PLAY ICON
-========================================================= */
 
 .play-icon {
     display: block;
@@ -2041,11 +1735,6 @@ button {
     border-left:
             13px solid #b85f78;
 }
-
-
-/* =========================================================
-   PAUSE ICON
-========================================================= */
 
 .pause-icon {
     display: flex;
@@ -2069,11 +1758,6 @@ button {
     background: #b85f78;
 }
 
-
-/* =========================================================
-   MUSIC PLAYING ANIMATION
-========================================================= */
-
 .music-button.playing {
     animation:
             musicPulse
@@ -2087,61 +1771,31 @@ button {
     0% {
         box-shadow:
                 0 6px 20px
-                rgba(
-                        163,
-                        93,
-                        119,
-                        .20
-                ),
+                rgba(163, 93, 119, 0.20),
                 0 0 0 0
-                rgba(
-                        184,
-                        102,
-                        126,
-                        .25
-                );
+                rgba(184, 102, 126, 0.25);
     }
 
     50% {
         box-shadow:
                 0 6px 20px
-                rgba(
-                        163,
-                        93,
-                        119,
-                        .20
-                ),
+                rgba(163, 93, 119, 0.20),
                 0 0 0 8px
-                rgba(
-                        184,
-                        102,
-                        126,
-                        .08
-                );
+                rgba(184, 102, 126, 0.08);
     }
 
     100% {
         box-shadow:
                 0 6px 20px
-                rgba(
-                        163,
-                        93,
-                        119,
-                        .20
-                ),
+                rgba(163, 93, 119, 0.20),
                 0 0 0 0
-                rgba(
-                        184,
-                        102,
-                        126,
-                        .25
-                );
+                rgba(184, 102, 126, 0.25);
     }
 }
 
 
 /* =========================================================
-   TOUCH / MOBILE OPTIMIZATION
+   TOUCH
 ========================================================= */
 
 .music-button,
@@ -2153,22 +1807,7 @@ button {
 
 
 /* =========================================================
-   SMALL PHONE SAFE
-========================================================= */
-
-@supports not (height: 100svh) {
-
-    .intro,
-    .envelope {
-        height: 100vh;
-    }
-
-    .envelope-image {
-        height: 100vh;
-    }
-}
-/* =========================================================
-   WEDDING CALENDAR
+   CALENDAR
 ========================================================= */
 
 .italian_calendar {
@@ -2191,15 +1830,7 @@ button {
     justify-content: center;
 
     background: #fff8fa;
-
-    box-sizing: border-box;
 }
-
-
-/* =========================================================
-   CALENDAR PNG
-   FAQAT ORQA FON / RAMKA
-========================================================= */
 
 .calendar-frame {
     position: absolute;
@@ -2212,20 +1843,13 @@ button {
     display: block;
 
     object-fit: cover;
-
     object-position: center;
 
     z-index: 1;
 
     pointer-events: none;
-
     user-select: none;
 }
-
-
-/* =========================================================
-   CALENDAR CONTENT
-========================================================= */
 
 .calendar_overlay {
     position: relative;
@@ -2248,14 +1872,7 @@ button {
     justify-content: flex-start;
 
     text-align: center;
-
-    box-sizing: border-box;
 }
-
-
-/* =========================================================
-   IL NOSTRO GIORNO
-========================================================= */
 
 .calendar_title {
     margin: 0 0 7px;
@@ -2271,22 +1888,11 @@ button {
     font-weight: 400;
 
     color: #b8617b;
-position: relative;
-    top: 10px   ;
-    text-shadow:
-            0 1px 1px
-            rgba(
-                    255,
-                    255,
-                    255,
-                    .8
-            );
+
+    position: relative;
+
+    top: 10px;
 }
-
-
-/* =========================================================
-   MAIN DATE
-========================================================= */
 
 .calendar_overlay > h2 {
     margin: 0 0 22px;
@@ -2303,21 +1909,26 @@ position: relative;
     font-weight: 500;
 
     letter-spacing: 2.5px;
+
     position: relative;
+
     top: 12px;
+
     color: #a65e76;
 
     white-space: nowrap;
 }
-.jas{
-    position: relative !important;
-    top: 35px !important;
-    font-family: "Cormorant Garamond", Georgia, serif !important;
-}
 
-/* =========================================================
-   CALENDAR CARD
-========================================================= */
+.jas {
+    position: relative !important;
+
+    top: 35px !important;
+
+    font-family:
+            "Cormorant Garamond",
+            Georgia,
+            serif !important;
+}
 
 .calendar_card {
     position: relative;
@@ -2329,8 +1940,6 @@ position: relative;
     padding:
             23px 15px 20px;
 
-    box-sizing: border-box;
-
     border-radius: 20px;
 
     background:
@@ -2338,7 +1947,7 @@ position: relative;
                     255,
                     252,
                     252,
-                    .91
+                    0.91
             );
 
     border:
@@ -2347,7 +1956,7 @@ position: relative;
                     190,
                     130,
                     145,
-                    .28
+                    0.28
             );
 
     box-shadow:
@@ -2356,26 +1965,11 @@ position: relative;
                     150,
                     80,
                     105,
-                    .09
-            ),
-
-            inset
-            0 0 18px
-            rgba(
-                    255,
-                    255,
-                    255,
-                    .75
+                    0.09
             );
 
-    backdrop-filter:
-            blur(2px);
+    backdrop-filter: blur(2px);
 }
-
-
-/* =========================================================
-   MONTH
-========================================================= */
 
 .month {
     margin:
@@ -2397,11 +1991,6 @@ position: relative;
     color: #b46d7e;
 }
 
-
-/* =========================================================
-   CALENDAR GRID
-========================================================= */
-
 .calendar {
     width: 100%;
 
@@ -2413,14 +2002,7 @@ position: relative;
     column-gap: 2px;
 
     row-gap: 5px;
-
-    box-sizing: border-box;
 }
-
-
-/* =========================================================
-   WEEK DAYS
-========================================================= */
 
 .day_name {
     height: 25px;
@@ -2436,11 +2018,9 @@ position: relative;
 
     font-size: 8px;
 
-    line-height: 1;
-
     font-weight: 600;
 
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
 
     color: #b87889;
 
@@ -2450,19 +2030,15 @@ position: relative;
                     190,
                     130,
                     145,
-                    .20
+                    0.20
             );
 }
-
-
-/* =========================================================
-   DAYS
-========================================================= */
 
 .day {
     position: relative;
 
     width: 100%;
+
     height: 31px;
 
     display: flex;
@@ -2477,29 +2053,14 @@ position: relative;
 
     font-size: 12px;
 
-    line-height: 1;
-
     color: #9d6375;
 
     border-radius: 50%;
-
-    box-sizing: border-box;
 }
-
-
-/* =========================================================
-   EMPTY DAY
-========================================================= */
 
 .empty_day {
     visibility: hidden;
 }
-
-
-/* =========================================================
-   30 SEPTEMBER
-   TO'Y KUNI
-========================================================= */
 
 .active_day {
     width: 31px;
@@ -2526,7 +2087,7 @@ position: relative;
                     202,
                     151,
                     94,
-                    .65
+                    0.65
             );
 
     box-shadow:
@@ -2535,39 +2096,10 @@ position: relative;
                     166,
                     86,
                     114,
-                    .25
+                    0.25
             );
 }
 
-
-/* =========================================================
-   HEART
-========================================================= */
-
-.invitation-heart {
-    position: absolute;
-
-    top: 70%;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: 48px;
-    height: 48px;
-
-    border: 1px solid #d99baa;
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 30px;
-
-    color: #bd617a;
-
-    font-family: serif;
-}
 .calendar-heart {
     position: absolute;
 
@@ -2576,10 +2108,9 @@ position: relative;
 
     font-size: 8px;
 
-    line-height: 1;
-
     color: #c99a5d;
 }
+
 
 /* =========================================================
    MOBILE
@@ -2587,17 +2118,29 @@ position: relative;
 
 @media (max-width: 420px) {
 
+    .opening-light {
+        width: 105px;
+        height: 105px;
+    }
+
+    .opening-glow {
+        width: 160px;
+        height: 160px;
+    }
+
+    .light-core {
+        width: 42px;
+        height: 42px;
+    }
+
     .italian_calendar {
         min-height: 720px;
     }
 
-
     .calendar-frame {
         object-fit: cover;
-
         object-position: center;
     }
-
 
     .calendar_overlay {
         min-height: 720px;
@@ -2606,13 +2149,9 @@ position: relative;
                 120px 28px 105px;
     }
 
-
     .calendar_title {
         font-size: 27px;
-
-        margin-bottom: 7px;
     }
-
 
     .calendar_overlay > h2 {
         font-size: 16px;
@@ -2621,7 +2160,6 @@ position: relative;
 
         margin-bottom: 19px;
     }
-
 
     .calendar_card {
         max-width: 292px;
@@ -2632,7 +2170,6 @@ position: relative;
         border-radius: 18px;
     }
 
-
     .month {
         font-size: 17px;
 
@@ -2641,41 +2178,24 @@ position: relative;
         margin-bottom: 14px;
     }
 
-
     .calendar {
         column-gap: 1px;
-
         row-gap: 4px;
     }
 
-
     .day_name {
         height: 22px;
-
         font-size: 7px;
     }
 
-
     .day {
         height: 29px;
-
         font-size: 11px;
     }
 
-
     .active_day {
         width: 29px;
-
         height: 29px;
-    }
-
-
-    .heart {
-        top: -6px;
-
-        right: -4px;
-
-        font-size: 8px;
     }
 }
 
@@ -2686,10 +2206,24 @@ position: relative;
 
 @media (max-width: 360px) {
 
+    .opening-light {
+        width: 90px;
+        height: 90px;
+    }
+
+    .opening-glow {
+        width: 140px;
+        height: 140px;
+    }
+
+    .light-core {
+        width: 38px;
+        height: 38px;
+    }
+
     .italian_calendar {
         min-height: 680px;
     }
-
 
     .calendar_overlay {
         min-height: 680px;
@@ -2698,18 +2232,15 @@ position: relative;
                 105px 23px 95px;
     }
 
-
     .calendar_title {
         font-size: 25px;
     }
-
 
     .calendar_overlay > h2 {
         font-size: 14px;
 
         letter-spacing: 1.4px;
     }
-
 
     .calendar_card {
         max-width: 275px;
@@ -2718,31 +2249,44 @@ position: relative;
                 18px 10px 17px;
     }
 
-
     .month {
         font-size: 16px;
 
         letter-spacing: 2.5px;
     }
 
-
     .day {
         height: 27px;
-
         font-size: 10px;
     }
 
-
     .day_name {
         height: 21px;
-
         font-size: 6.5px;
     }
 
-
     .active_day {
         width: 27px;
-
         height: 27px;
+    }
+}
+
+
+/* =========================================================
+   FALLBACK
+========================================================= */
+
+@supports not (height: 100svh) {
+
+    .intro {
+        height: 100vh;
+    }
+
+    .envelope {
+        height: 100vh;
+    }
+
+    .envelope-image {
+        max-height: 100vh;
     }
 }
