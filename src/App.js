@@ -515,9 +515,6 @@ function App() {
 
                             </div>
 
-                            <h2 className="dear">
-                                Dear Friends and Family
-                            </h2>
 
                             <p className="invitation-text">
                                 Hayotimizning eng go‘zal kunida
